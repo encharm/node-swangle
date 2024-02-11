@@ -47,14 +47,10 @@ void EGLContextWrapper::InitEGL(napi_env env,
                                 const GLContextOptions& context_options) {
   std::vector<EGLAttrib> display_attributes;
   display_attributes.push_back(EGL_PLATFORM_ANGLE_TYPE_ANGLE);
-  // Most NVIDIA drivers will not work properly with
-  // EGL_PLATFORM_ANGLE_TYPE_OPENGLES_ANGLE, only enable this option on ARM
-  // devices for now:
-#if defined(__arm__)
-  display_attributes.push_back(EGL_PLATFORM_ANGLE_TYPE_OPENGLES_ANGLE);
-#else
-  display_attributes.push_back(EGL_PLATFORM_ANGLE_TYPE_DEFAULT_ANGLE);
-#endif
+  display_attributes.push_back(EGL_PLATFORM_ANGLE_TYPE_VULKAN_ANGLE);
+
+  display_attributes.push_back(EGL_PLATFORM_ANGLE_DEVICE_TYPE_ANGLE);
+  display_attributes.push_back(EGL_PLATFORM_ANGLE_DEVICE_TYPE_SWIFTSHADER_ANGLE);
 
   display_attributes.push_back(EGL_NONE);
 
