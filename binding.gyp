@@ -52,6 +52,7 @@
             '-Wl,-rpath,<@(angle_lib_dir)',
             '-lGLESv2',
             '-lEGL',
+            '-lvulkan',
           ],
           'library_dirs' : ['<(angle_lib_dir)'],
         }
