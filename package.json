@@ -13,6 +13,7 @@
   },
   "license": "Apache-2.0",
   "scripts": {
+    "install": "node scripts/install.js",
     "build": "tsc && node-gyp build"
   },
   "devDependencies": {
