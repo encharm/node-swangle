@@ -1,14 +1,7 @@
-async function buildBindings() {
-  cp.execSync('node-gyp rebuild', (err) => {
-    if (err) {
-      throw new Error('node-gyp failed with: ' + err);
-    }
-  });
-}
+const { execSync } = require('child_process');
 
 async function run() {
-  // skip for now
-  //await buildBindings();
+  await execSync('node-gyp rebuild');
 }
 
 run();
