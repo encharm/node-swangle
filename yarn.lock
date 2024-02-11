@@ -28,10 +28,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/webgl2@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@types/webgl2/-/webgl2-0.0.4.tgz#c3b0f9d6b465c66138e84e64cb3bdf8373c2c279"
-  integrity sha512-PACt1xdErJbMUOUweSrbVM7gSIYm1vTncW2hF6Os/EeWi6TXYAYMPp+8v6rzHmypE5gHrxaxZNXgMkJVIdZpHw==
+"@types/webgl2@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@types/webgl2/-/webgl2-0.0.11.tgz#a54d56775816c86725cc9fefdc3c90619eabce5a"
+  integrity sha512-LFa4je4lUbqDVRNeC2W1ZRM8dOgsGsm23MZO7m/EllCVg07yB65W3eUF4MAM+0LU9X6x/0NTrvXxAW0pmipNdw==
 
 adm-zip@^0.4.13:
   version "0.4.16"
