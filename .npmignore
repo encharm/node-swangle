@@ -1,11 +1,9 @@
 .vscode/
 demo/
-deps/angle/*
 scripts/build-npm.sh
 scripts/make-version
 scripts/tag-version
 scripts/publish-npm.sh
-build/
 src/
 node_modules/
 *.tgz

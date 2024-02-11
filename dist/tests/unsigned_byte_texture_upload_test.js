@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var gles = require("../.");
+var test_utils_1 = require("./test_utils");
+var gl = gles.createWebGLRenderingContext();
+console.log('VERSION: ' + gl.getParameter(gl.VERSION));
+console.log('RENDERER: ' + gl.getParameter(gl.RENDERER));
+test_utils_1.initEnvGL(gl);
+var texture = test_utils_1.createTexture2D(gl, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE);
+gl.bindTexture(gl.TEXTURE_2D, texture);
+var values = new Uint8Array([1, 2, 3, 4]);
+gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, values);
+var framebuffer = gl.createFramebuffer();
+gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+test_utils_1.ensureFramebufferAttachment(gl);
+var buffer = new Uint8Array(4);
+gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, buffer);
+console.log('buffer: ', buffer);
+//# sourceMappingURL=unsigned_byte_texture_upload_test.js.map
