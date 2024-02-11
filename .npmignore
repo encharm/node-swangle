@@ -1,4 +1,5 @@
 .vscode/
+build/
 demo/
 scripts/build-npm.sh
 scripts/make-version
