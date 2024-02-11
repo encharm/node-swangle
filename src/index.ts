@@ -19,7 +19,7 @@
 import bindings = require('bindings');
 import {NodeJsGlBinding} from './binding';
 
-const binding = bindings('nodejs_gl_binding') as NodeJsGlBinding;
+const binding = bindings(`nodejs_gl_binding_${process.platform}_${process.arch}`) as NodeJsGlBinding;
 
 
 interface ContextArguments {
@@ -45,7 +45,7 @@ const createWebGLRenderingContext = function(args: ContextArguments = {}) {
     );
 
 
-} 
+}
 
 
 export { createWebGLRenderingContext };

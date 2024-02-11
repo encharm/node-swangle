@@ -19,10 +19,10 @@
   'variables' : {
     'arch': '<!(node -p "process.arch")',
     'platform': '<!(node -p "process.platform")',
-    'angle_lib_dir': '<(module_root_dir)/deps/angle/lib/<(platform)-<(arch)/'
+    'angle_lib_dir': '<(module_root_dir)/deps/angle/lib/<(platform)-<(arch)'
   },
   'targets' : [{
-    'target_name' : 'nodejs_gl_binding',
+    'target_name' : 'nodejs_gl_binding_<(platform)_<(arch)',
     'sources' : [
       'binding/binding.cc',
       'binding/egl_context_wrapper.cc',
