@@ -52,7 +52,7 @@
             '-Wl,-rpath,<@(angle_lib_dir)',
             '-lGLESv2',
             '-lEGL',
-            '-lvulkan',
+            '-lvk_swiftshader',
           ],
           'library_dirs' : ['<(angle_lib_dir)'],
         }
