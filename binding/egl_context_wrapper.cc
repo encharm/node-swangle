@@ -133,6 +133,9 @@ void EGLContextWrapper::InitEGL(napi_env env,
     context_attributes.push_back(EGL_TRUE);
   }
 
+  context_attributes.push_back(EGL_ROBUST_RESOURCE_INITIALIZATION_ANGLE);
+  context_attributes.push_back(EGL_TRUE);
+
   // TODO(kreeger): This is only needed to avoid validation.
   // This is needed for OES_TEXTURE_HALF_FLOAT textures uploading as FLOAT
   context_attributes.push_back(EGL_CONTEXT_OPENGL_NO_ERROR_KHR);
@@ -151,8 +154,6 @@ void EGLContextWrapper::InitEGL(napi_env env,
                               (EGLint)context_options.width,
                               EGL_HEIGHT,
                               (EGLint)context_options.height,
-                              EGL_ROBUST_RESOURCE_INITIALIZATION_ANGLE,
-                              EGL_TRUE,
                               EGL_NONE};
   surface = eglCreatePbufferSurface(display, config, surface_attribs);
   if (surface == EGL_NO_SURFACE) {
