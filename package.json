@@ -13,7 +13,7 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "install": "node scripts/install.js",
+    "install": "node-gyp rebuild && node scripts/install.js",
     "build": "tsc && node-gyp rebuild"
   },
   "devDependencies": {
@@ -33,5 +33,6 @@
     "progress": "^2.0.3",
     "rimraf": "^2.6.2",
     "tar": "^6.0.1"
-  }
+  },
+  "packageManager": "yarn@4.6.0"
 }
