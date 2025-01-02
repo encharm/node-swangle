@@ -55,6 +55,9 @@
             '-lvk_swiftshader',
           ],
           'library_dirs' : ['<(angle_lib_dir)'],
+          'include_dirs' : [
+            '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/'
+          ]
         }
       ],
       [
