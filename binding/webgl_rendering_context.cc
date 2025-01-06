@@ -2649,7 +2649,8 @@ napi_value WebGLRenderingContext::GetParameter(napi_env env,
       }
       break;
     }
-
+    case GL_FRAMEBUFFER_BINDING:
+    case GL_TEXTURE_BINDING_2D:
     case GL_ARRAY_BUFFER_BINDING: {
       GLint previous_buffer = 0;
       context->eglContextWrapper_->glGetIntegerv(GL_ARRAY_BUFFER_BINDING,
