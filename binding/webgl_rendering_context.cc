@@ -822,6 +822,7 @@ napi_status WebGLRenderingContext::Register(napi_env env, napi_value exports) {
       NapiDefineIntProperty(env, GL_SRC_ALPHA_SATURATE, "SRC_ALPHA_SATURATE"),
       NapiDefineIntProperty(env, GL_SRC_COLOR, "SRC_COLOR"),
       NapiDefineIntProperty(env, GL_STATIC_DRAW, "STATIC_DRAW"),
+      NapiDefineIntProperty(env, GL_STATIC_READ, "STATIC_READ"),
       NapiDefineIntProperty(env, GL_STENCIL_ATTACHMENT, "STENCIL_ATTACHMENT"),
       NapiDefineIntProperty(env, GL_STENCIL_BACK_FAIL, "STENCIL_BACK_FAIL"),
       NapiDefineIntProperty(env, GL_STENCIL_BACK_FUNC, "STENCIL_BACK_FUNC"),
@@ -2594,7 +2595,7 @@ napi_value WebGLRenderingContext::GetExtension(napi_env env,
     nstatus =
         WebGLLoseContextExtension::NewInstance(env, &webgl_extension, egl_ctx);
   } else {
-    fprintf(stderr, "Unsupported extension: %s\n", name);
+    //fprintf(stderr, "Unsupported extension: %s\n", name);
     nstatus = napi_get_null(env, &webgl_extension);
   }
   ENSURE_NAPI_OK_RETVAL(env, nstatus, nullptr);
