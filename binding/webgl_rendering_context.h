@@ -186,6 +186,7 @@ class WebGLRenderingContext {
   static napi_value VertexAttrib4fv(napi_env env, napi_callback_info info);
   static napi_value VertexAttribPointer(napi_env env, napi_callback_info info);
   static napi_value Viewport(napi_env env, napi_callback_info info);
+  static napi_value drawBuffers(napi_env env, napi_callback_info info);
 
   static napi_ref constructor_ref_;
 

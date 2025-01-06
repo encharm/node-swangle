@@ -565,6 +565,7 @@ napi_status WebGLRenderingContext::Register(napi_env env, napi_value exports) {
       NAPI_DEFINE_METHOD("vertexAttrib4fv", VertexAttrib4fv),
       NAPI_DEFINE_METHOD("vertexAttribPointer", VertexAttribPointer),
       NAPI_DEFINE_METHOD("viewport", Viewport),
+      NAPI_DEFINE_METHOD("drawBuffers", drawBuffers),
       // clang-format on
 
       // WebGL attributes:
@@ -960,6 +961,43 @@ napi_status WebGLRenderingContext::Register(napi_env env, napi_value exports) {
       NapiDefineIntProperty(env, GL_RED, "RED"),
       NapiDefineIntProperty(env, GL_SYNC_GPU_COMMANDS_COMPLETE,
                             "SYNC_GPU_COMMANDS_COMPLETE"),
+
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT0_EXT, "COLOR_ATTACHMENT0"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT1_EXT, "COLOR_ATTACHMENT1"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT2_EXT, "COLOR_ATTACHMENT2"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT3_EXT, "COLOR_ATTACHMENT3"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT4_EXT, "COLOR_ATTACHMENT4"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT5_EXT, "COLOR_ATTACHMENT5"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT6_EXT, "COLOR_ATTACHMENT6"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT7_EXT, "COLOR_ATTACHMENT7"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT8_EXT, "COLOR_ATTACHMENT8"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT9_EXT, "COLOR_ATTACHMENT9"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT10_EXT, "COLOR_ATTACHMENT10"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT11_EXT, "COLOR_ATTACHMENT11"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT12_EXT, "COLOR_ATTACHMENT12"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT13_EXT, "COLOR_ATTACHMENT13"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT14_EXT, "COLOR_ATTACHMENT14"),
+      NapiDefineIntProperty(env, GL_COLOR_ATTACHMENT15_EXT, "COLOR_ATTACHMENT15"),
+
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER0, "DRAW_BUFFER0"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER1, "DRAW_BUFFER1"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER2, "DRAW_BUFFER2"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER3, "DRAW_BUFFER3"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER4, "DRAW_BUFFER4"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER5, "DRAW_BUFFER5"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER6, "DRAW_BUFFER6"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER7, "DRAW_BUFFER7"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER8, "DRAW_BUFFER8"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER9, "DRAW_BUFFER9"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER10, "DRAW_BUFFER10"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER11, "DRAW_BUFFER11"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER12, "DRAW_BUFFER12"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER13, "DRAW_BUFFER13"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER14, "DRAW_BUFFER14"),
+      NapiDefineIntProperty(env, GL_DRAW_BUFFER15, "DRAW_BUFFER15"),
+
+      NapiDefineIntProperty(env, GL_MAX_COLOR_ATTACHMENTS, "MAX_COLOR_ATTACHMENTS"),
+      NapiDefineIntProperty(env, GL_MAX_DRAW_BUFFERS, "MAX_DRAW_BUFFERS"),
   };
 
   // Create constructor
@@ -5594,6 +5632,41 @@ napi_value WebGLRenderingContext::VertexAttribPointer(napi_env env,
 #if DEBUG
   context->CheckForErrors();
 #endif
+  return nullptr;
+}
+
+napi_value WebGLRenderingContext::drawBuffers(napi_env env, napi_callback_info info) {
+  napi_status status;
+  napi_value js_this;
+  napi_value argv[1];
+
+  size_t argc = 1;
+  status = napi_get_cb_info(env, info, &argc, argv, &js_this, NULL);
+  ENSURE_NAPI_OK_RETVAL(env, status, nullptr);
+  ENSURE_ARGC_RETVAL(env, argc, 1, nullptr);
+
+  uint32_t length;
+  status = napi_get_array_length(env, argv[0], &length);
+
+  GLuint numBuffers = length;
+  GLenum buffers[numBuffers];
+
+  for (uint32_t i = 0; i < length; ++i) {
+    napi_value ret;
+    napi_get_element(env, argv[0], i, &ret);
+
+    int32_t myint;
+    napi_get_value_int32(env, ret, &myint);
+
+    buffers[i] = myint;
+  }
+
+  WebGLRenderingContext *context = nullptr;
+  status = UnwrapContext(env, js_this, &context);
+  ENSURE_NAPI_OK_RETVAL(env, status, nullptr);
+
+  context->eglContextWrapper_->glDrawBuffersEXT(numBuffers, buffers);
+
   return nullptr;
 }
 

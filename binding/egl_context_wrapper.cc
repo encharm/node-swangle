@@ -443,8 +443,9 @@ void EGLContextWrapper::BindProcAddresses() {
       reinterpret_cast<PFNGLVIEWPORTPROC>(eglGetProcAddress("glViewport"));
 
   // ANGLE specific
-  glRequestExtensionANGLE = reinterpret_cast<PFNGLREQUESTEXTENSIONANGLEPROC>(
-      eglGetProcAddress("glRequestExtensionANGLE"));
+  glRequestExtensionANGLE = reinterpret_cast<PFNGLREQUESTEXTENSIONANGLEPROC>(eglGetProcAddress("glRequestExtensionANGLE"));
+
+  glDrawBuffersEXT = reinterpret_cast<PFNGLDRAWBUFFERSEXTPROC>(eglGetProcAddress("glDrawBuffersEXT"));
 }
 
 void EGLContextWrapper::RefreshGLExtensions() {
