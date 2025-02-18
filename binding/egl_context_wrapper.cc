@@ -47,7 +47,7 @@ void EGLContextWrapper::InitEGL(napi_env env,
                                 const GLContextOptions& context_options) {
   std::vector<EGLAttrib> display_attributes;
   display_attributes.push_back(EGL_PLATFORM_ANGLE_TYPE_ANGLE);
-  display_attributes.push_back(EGL_PLATFORM_ANGLE_TYPE_VULKAN_ANGLE);
+  display_attributes.push_back(EGL_PLATFORM_ANGLE_TYPE_OPENGL_ANGLE);
 
   display_attributes.push_back(EGL_PLATFORM_ANGLE_DEVICE_TYPE_ANGLE);
   display_attributes.push_back(EGL_PLATFORM_ANGLE_DEVICE_TYPE_SWIFTSHADER_ANGLE);
