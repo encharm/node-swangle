@@ -30,6 +30,10 @@
 #include <string>
 #include <vector>
 
+#ifdef _WIN32
+#include <malloc.h>
+#endif
+
 namespace nodejsgl {
 
 // Basic type to control what byte-width the ArrayLike buffer is for cleanup.
@@ -2361,8 +2365,8 @@ napi_value WebGLRenderingContext::DrawElements(napi_env env,
   nstatus = napi_get_value_uint32(env, args[2], &type);
   ENSURE_NAPI_OK_RETVAL(env, nstatus, nullptr);
 
-  uint32_t offset;
-  nstatus = napi_get_value_uint32(env, args[3], &offset);
+  uint64_t offset;
+  nstatus = napi_get_value_uint32(env, args[3], reinterpret_cast<uint32_t *>(&offset));
   ENSURE_NAPI_OK_RETVAL(env, nstatus, nullptr);
 
   context->eglContextWrapper_->glDrawElements(
@@ -5619,8 +5623,8 @@ napi_value WebGLRenderingContext::VertexAttribPointer(napi_env env,
   ENSURE_NAPI_OK_RETVAL(env, nstatus, nullptr);
 
   ENSURE_VALUE_IS_NUMBER_RETVAL(env, args[5], nullptr);
-  uint32_t offset;
-  nstatus = napi_get_value_uint32(env, args[5], &offset);
+  uint64_t offset;
+  nstatus = napi_get_value_uint32(env, args[5], reinterpret_cast<uint32_t *>(&offset));
   ENSURE_NAPI_OK_RETVAL(env, nstatus, nullptr);
 
   WebGLRenderingContext *context = nullptr;
@@ -5651,7 +5655,11 @@ napi_value WebGLRenderingContext::drawBuffers(napi_env env, napi_callback_info i
   status = napi_get_array_length(env, argv[0], &length);
 
   GLuint numBuffers = length;
+#ifdef _WIN32
+  GLenum* buffers = (GLenum*)_alloca(numBuffers * sizeof(GLenum));
+#else
   GLenum buffers[numBuffers];
+#endif
 
   for (uint32_t i = 0; i < length; ++i) {
     napi_value ret;

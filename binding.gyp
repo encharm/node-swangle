@@ -63,8 +63,20 @@
       [
         'OS=="win"', {
           'defines': ['COMPILER_MSVC'],
-          'libraries': ['libGLESv2', 'libEGL'],
+          'libraries': ['libGLESv2', 'libEGL', 'vk_swiftshader'],
           'library_dirs' : ['<(angle_lib_dir)'],
+          'copies': [
+            {
+              'destination': '<(PRODUCT_DIR)',
+              'files': [
+                '<(angle_lib_dir)/libEGL.dll',
+                '<(angle_lib_dir)/libGLESv2.dll',
+                '<(angle_lib_dir)/vulkan-1.dll',
+                '<(angle_lib_dir)/vk_swiftshader.dll',
+                '<(angle_lib_dir)/vk_swiftshader_icd.json'
+              ]
+            }
+          ]
         },
       ]
     ]
