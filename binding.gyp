@@ -63,7 +63,7 @@
       [
         'OS=="win"', {
           'defines': ['COMPILER_MSVC'],
-          'libraries': ['libGLESv2', 'libEGL', 'vk_swiftshader'],
+          'libraries': ['libGLESv2', 'libEGL', 'vulkan-1'],
           'library_dirs' : ['<(angle_lib_dir)'],
           'copies': [
             {
