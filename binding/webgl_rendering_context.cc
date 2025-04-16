@@ -2365,8 +2365,8 @@ napi_value WebGLRenderingContext::DrawElements(napi_env env,
   nstatus = napi_get_value_uint32(env, args[2], &type);
   ENSURE_NAPI_OK_RETVAL(env, nstatus, nullptr);
 
-  uint64_t offset;
-  nstatus = napi_get_value_uint32(env, args[3], reinterpret_cast<uint32_t *>(&offset));
+  uint32_t offset;
+  nstatus = napi_get_value_uint32(env, args[3], &offset);
   ENSURE_NAPI_OK_RETVAL(env, nstatus, nullptr);
 
   context->eglContextWrapper_->glDrawElements(
@@ -5623,8 +5623,8 @@ napi_value WebGLRenderingContext::VertexAttribPointer(napi_env env,
   ENSURE_NAPI_OK_RETVAL(env, nstatus, nullptr);
 
   ENSURE_VALUE_IS_NUMBER_RETVAL(env, args[5], nullptr);
-  uint64_t offset;
-  nstatus = napi_get_value_uint32(env, args[5], reinterpret_cast<uint32_t *>(&offset));
+  uint32_t offset;
+  nstatus = napi_get_value_uint32(env, args[5], &offset);
   ENSURE_NAPI_OK_RETVAL(env, nstatus, nullptr);
 
   WebGLRenderingContext *context = nullptr;
